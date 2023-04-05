@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "270890614451",
+    "project_id": "emergency-notifier-b90c1",
+    "storage_bucket": "emergency-notifier-b90c1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:270890614451:android:68a539c74c03c9f7843ac6",
+        "android_client_info": {
+          "package_name": "com.example.final_try"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "270890614451-h82qta6g7h9c13lbh9g91ekiid0rbavf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBoPC4HaeX31WBXXbpx9LIWucIU-A-tDSY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "270890614451-h82qta6g7h9c13lbh9g91ekiid0rbavf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
