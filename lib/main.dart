@@ -47,6 +47,7 @@ class MyApp extends StatelessWidget {
             }));
   }
 }
+//minor
  
 /*class CheckAuth extends StatelessWidget {
   //const CheckAuth({Key? key}) : super(key: key);
