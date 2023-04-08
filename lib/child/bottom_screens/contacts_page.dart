@@ -80,41 +80,47 @@ class _ContactsPageState extends State<ContactsPage> {
     return Scaffold(
       body: contacts.length == 0
           ? Center(child: CircularProgressIndicator()) //Progress indicator
-          : Column(
-              children: [
-                TextField(
-                  autofocus: true,
-                  controller: searchController,
-                  decoration: InputDecoration(
-                      labelText: "Search Contact",
-                      prefixIcon: Icon(Icons.search)),
-                ),
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: contacts.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      Contact contact = contacts[index];
-                      return ListTile(
-                          title:
-                              Text(contact.displayName!), //shows contact name
-                          subtitle: Text(contact.phones!.isNotEmpty
-                              ? contact.phones!.elementAt(0).value ?? ""
-                              : ""),
-                          //shows the contact number
-                          leading: contact.avatar != null &&
-                                  contact.avatar!.length > 0
-                              ? CircleAvatar(
-                                  backgroundColor: primaryColor,
-                                  backgroundImage: MemoryImage(contact.avatar!),
-                                )
-                              : CircleAvatar(
-                                  backgroundColor: primaryColor,
-                                  child: Text(contact.initials()),
-                                ));
-                    },
+          : SafeArea(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextField(
+                      autofocus: true,
+                      controller: searchController,
+                      decoration: InputDecoration(
+                          labelText: "Search Contact",
+                          prefixIcon: Icon(Icons.search)),
+                    ),
                   ),
-                ),
-              ],
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: contacts.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        Contact contact = contacts[index];
+                        return ListTile(
+                            title:
+                                Text(contact.displayName!), //shows contact name
+                            subtitle: Text(contact.phones!.isNotEmpty
+                                ? contact.phones!.elementAt(0).value ?? ""
+                                : ""),
+                            //shows the contact number
+                            leading: contact.avatar != null &&
+                                    contact.avatar!.length > 0
+                                ? CircleAvatar(
+                                    backgroundColor: primaryColor,
+                                    backgroundImage:
+                                        MemoryImage(contact.avatar!),
+                                  )
+                                : CircleAvatar(
+                                    backgroundColor: primaryColor,
+                                    child: Text(contact.initials()),
+                                  ));
+                      },
+                    ),
+                  ),
+                ],
+              ),
             ),
     );
   }
