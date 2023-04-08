@@ -22,28 +22,46 @@ class _ContactsPageState extends State<ContactsPage> {
     askPermissions();
   }
 
+  String flattenPhoneNumber(String phoneStr) {
+    return phoneStr.replaceAllMapped(RegExp(r'^(\+)|\D'), (Match m) {
+      return m[0] == "+" ? "+:" : "";
+    });
+  }
+
   filterContact() {
     List<Contact> _contacts = [];
     _contacts.addAll(contacts);
     if (searchController.text.isNotEmpty) {
       _contacts.retainWhere((element) {
         String searchTerm = searchController.text.toLowerCase();
+        String searchTermFlattern = flattenPhoneNumber(searchTerm);
         String contactName = element.displayName!.toLowerCase();
         bool nameMatch = contactName.contains(searchTerm);
         if (nameMatch == true) {
-          setState(() {
-            contactsFiltered = _contacts;
-          });
+          return true;
         }
-        return true;
+        if (searchTermFlattern.isEmpty) {
+          return false;
+        }
+        var phone = element.phones!.firstWhere((p) {
+          String phnFlattered = flattenPhoneNumber(p.value!);
+          return phnFlattered.contains(searchTermFlattern);
+        });
+        return phone.value != null;
       });
     }
+    setState(() {
+      contactsFiltered = _contacts;
+    });
   }
 
   Future<void> askPermissions() async {
     PermissionStatus permissionStatus = await getContactsPermissions();
     if (permissionStatus == PermissionStatus.granted) {
       getAllContacts();
+      searchController.addListener(() {
+        filterContact();
+      });
     } else {
       handInvalidPermissions(permissionStatus);
     }
@@ -77,6 +95,9 @@ class _ContactsPageState extends State<ContactsPage> {
 
   @override
   Widget build(BuildContext context) {
+    bool isSearchIng = searchController.text.isNotEmpty;
+    bool listItemExit = (contactsFiltered.length > 0 || contacts.length > 0);
+
     return Scaffold(
       body: contacts.length == 0
           ? Center(child: CircularProgressIndicator()) //Progress indicator
@@ -93,32 +114,40 @@ class _ContactsPageState extends State<ContactsPage> {
                           prefixIcon: Icon(Icons.search)),
                     ),
                   ),
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: contacts.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        Contact contact = contacts[index];
-                        return ListTile(
-                            title:
-                                Text(contact.displayName!), //shows contact name
-                            subtitle: Text(contact.phones!.isNotEmpty
-                                ? contact.phones!.elementAt(0).value ?? ""
-                                : ""),
-                            //shows the contact number
-                            leading: contact.avatar != null &&
-                                    contact.avatar!.length > 0
-                                ? CircleAvatar(
-                                    backgroundColor: primaryColor,
-                                    backgroundImage:
-                                        MemoryImage(contact.avatar!),
-                                  )
-                                : CircleAvatar(
-                                    backgroundColor: primaryColor,
-                                    child: Text(contact.initials()),
-                                  ));
-                      },
-                    ),
-                  ),
+                  listItemExit == true
+                      ? Expanded(
+                          child: ListView.builder(
+                            itemCount: isSearchIng == true
+                                ? contactsFiltered.length
+                                : contacts.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              Contact contact = isSearchIng == true
+                                  ? contactsFiltered[index]
+                                  : contacts[index];
+                              return ListTile(
+                                  title: Text(contact
+                                      .displayName!), //shows contact name
+                                  subtitle: Text(contact.phones!.isNotEmpty
+                                      ? contact.phones!.elementAt(0).value ?? ""
+                                      : ""),
+                                  //shows the contact number
+                                  leading: contact.avatar != null &&
+                                          contact.avatar!.length > 0
+                                      ? CircleAvatar(
+                                          backgroundColor: primaryColor,
+                                          backgroundImage:
+                                              MemoryImage(contact.avatar!),
+                                        )
+                                      : CircleAvatar(
+                                          backgroundColor: primaryColor,
+                                          child: Text(contact.initials()),
+                                        ));
+                            },
+                          ),
+                        )
+                      : Container(
+                          child: Text("Searching"),
+                        ),
                 ],
               ),
             ),
