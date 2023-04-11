@@ -7,13 +7,15 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'child/child_login_screen.dart';
 
-final navigatorkey = GlobalKey<ScaffoldMessengerState>();
+final navigatorkey = GlobalKey<
+    ScaffoldMessengerState>(); //Manipulate scaffoldmessenger widget that shows snackbar and bottomsheet
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  await MySharedPreference.init();
-  runApp(const MyApp());
+  WidgetsFlutterBinding
+      .ensureInitialized(); //ensure flutter framework is initialized
+  await Firebase.initializeApp(); //initializes firebase
+  await MySharedPreference.init(); // Initialize app's shared preference
+  runApp(const MyApp()); // Runs MyApp widget
 }
 
 class MyApp extends StatelessWidget {
