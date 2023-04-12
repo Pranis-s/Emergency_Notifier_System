@@ -33,7 +33,8 @@ class _RegisterChildScreenState extends State<RegisterChildScreen> {
         setState(() {
           isLoading = true;
         });
-        UserCredential userCredential = await FirebaseAuth.instance
+        UserCredential userCredential = await FirebaseAuth
+            .instance //firebaseauth
             .createUserWithEmailAndPassword(
                 email: _formData['cemail'].toString(),
                 password: _formData['password'].toString());
