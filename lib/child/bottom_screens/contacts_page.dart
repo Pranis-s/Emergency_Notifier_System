@@ -100,7 +100,9 @@ class _ContactsPageState extends State<ContactsPage> {
 
     return Scaffold(
       body: contacts.length == 0
-          ? Center(child: CircularProgressIndicator()) //Progress indicator
+          ? Center(
+              child:
+                  CircularProgressIndicator()) // This is a progress indicator
           : SafeArea(
               child: Column(
                 children: [
