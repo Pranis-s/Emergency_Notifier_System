@@ -1,3 +1,4 @@
+import 'package:final_try/child/bottom_screens/add_contacts.dart';
 import 'package:final_try/child/bottom_screens/chat_page.dart';
 import 'package:final_try/child/bottom_screens/child_home_screen.dart';
 import 'package:final_try/child/bottom_screens/contacts_page.dart';
@@ -16,12 +17,11 @@ class _BottomPageState extends State<BottomPage> {
   int currentIndex = 0;
   List<Widget> pages = [
     HomeScreen(),
-    ContactsPage(),
+    AddContactsPage(),
     ChatPage(),
     ProfilePage(),
     ReviewPage(),
   ];
-
   onTapped(int index) {
     setState(() {
       currentIndex = index;
