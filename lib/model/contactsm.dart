@@ -11,6 +11,7 @@ class TContact {
   //getters used to get the value. When id is called, getter setter is called
   String get number => _number!;
   String get name => _name!;
+  int get id => _id!;
 
   @override // ASk GPT
   // this function converts and saves id, number, name to string

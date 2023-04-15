@@ -1,5 +1,4 @@
 import 'dart:html';
-
 import 'package:final_try/model/contactsm.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -86,5 +85,30 @@ class DatabaseHelper {
         await db.rawDelete('DELETE FROM $contactTable WHERE $colId = $id');
     //print (await db.query(contactTable));
     return result;
+  }
+
+  //Get number of contact objects
+  Future<int> getCount() async {
+    Database db = await this.database;
+    List<Map<String, dynamic>> x =
+        await db.rawQuery('SELECT COUNT (*) from $contactTable');
+    int result = Sqflite.firstIntValue(x)!;
+    return result;
+  }
+
+  //Get the "Map List" [ List<Map> ] and convert it to "Contact list" [ List<Contact>]
+  Future<List<TContact>> getContactList() async {
+    var contactMapList =
+        await getContactMapList(); // get 'Map List" from database
+    int count =
+        contactMapList.length; // Count number of map entries in db table
+
+    List<TContact> contactList = <TContact>[];
+    // For loop to create a "Contact List" from a "Map List"
+    for (int i = 0; i < count; i++) {
+      contactList.add(TContact.fromMapObject(contactMapList[i]));
+    }
+
+    return contactList;
   }
 }
