@@ -112,3 +112,4 @@ class DatabaseHelper {
     return contactList;
   }
 }
+// This is the dart file for local database to add trusted contacts 
