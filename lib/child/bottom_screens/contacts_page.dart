@@ -143,7 +143,14 @@ class _ContactsPageState extends State<ContactsPage> {
                                       : CircleAvatar(
                                           backgroundColor: primaryColor,
                                           child: Text(contact.initials()),
-                                        ));
+                                        ),
+                                  onTap: () {
+                                    if (contact.phones!.length > 0) {
+                                      final String phoneNum =
+                                          contact.phones!.elementAt(0).value!;
+                                      final String name = contact.displayName!;
+                                    } else {}
+                                  });
                             },
                           ),
                         )
