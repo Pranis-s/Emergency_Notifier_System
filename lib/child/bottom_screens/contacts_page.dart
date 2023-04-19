@@ -1,7 +1,12 @@
 import 'package:contacts_service/contacts_service.dart';
+import 'package:final_try/db/db_services.dart';
 import 'package:final_try/utils/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:sqflite/sqflite.dart';
+
+import '../../model/contactsm.dart';
 
 class ContactsPage extends StatefulWidget {
   const ContactsPage({Key? key}) : super(key: key);
@@ -11,8 +16,9 @@ class ContactsPage extends StatefulWidget {
 }
 
 class _ContactsPageState extends State<ContactsPage> {
-  List<Contact> contacts = [];
+  List<Contact> contacts = []; //creating object
   List<Contact> contactsFiltered = [];
+  DatabaseHelper _databaseHelper = DatabaseHelper();
 
   TextEditingController searchController = TextEditingController();
 
@@ -161,5 +167,14 @@ class _ContactsPageState extends State<ContactsPage> {
               ),
             ),
     );
+  }
+
+  void _addContact(TContact newContact) async {
+    int result = await _databaseHelper.insertContact(newContact);
+    if (result != 0) {
+      Fluttertoast.showToast(msg: "Contact added successfully");
+    } else {
+      Fluttertoast.showToast(msg: "Failed to add contact");
+    }
   }
 }
