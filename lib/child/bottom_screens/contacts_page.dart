@@ -181,6 +181,6 @@ class _ContactsPageState extends State<ContactsPage> {
     } else {
       Fluttertoast.showToast(msg: "Failed to add contact");
     }
-    Navigator.of(context).pop();
+    Navigator.of(context).pop(true);
   }
 }
