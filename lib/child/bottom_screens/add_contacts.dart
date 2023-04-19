@@ -71,16 +71,18 @@ class _AddContactsPageState extends State<AddContactsPage> {
                   showList();
                 }
               }),
-          SingleChildScrollView(
+          Expanded(
             child: ListView.builder(
-                shrinkWrap: true,
+                //shrinkWrap: true,
                 itemCount: count,
                 itemBuilder: (BuildContext context, int index) {
                   return Card(
                     child: ListTile(
                       title: Text(contactList![index].name),
                       trailing: IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          deleteContact(contactList![index]);
+                        },
                         icon: Icon(
                           Icons.delete,
                           color: Colors.red,
