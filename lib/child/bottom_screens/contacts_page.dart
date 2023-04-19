@@ -155,7 +155,12 @@ class _ContactsPageState extends State<ContactsPage> {
                                       final String phoneNum =
                                           contact.phones!.elementAt(0).value!;
                                       final String name = contact.displayName!;
-                                    } else {}
+                                      _addContact(TContact(phoneNum, name));
+                                    } else {
+                                      Fluttertoast.showToast(
+                                          msg:
+                                              "Phone number of this contact does not exist");
+                                    }
                                   });
                             },
                           ),
@@ -176,5 +181,6 @@ class _ContactsPageState extends State<ContactsPage> {
     } else {
       Fluttertoast.showToast(msg: "Failed to add contact");
     }
+    Navigator.of(context).pop();
   }
 }
