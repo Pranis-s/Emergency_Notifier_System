@@ -9,7 +9,7 @@ class SafeHome extends StatelessWidget {
           height: MediaQuery.of(context).size.height / 1.4,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [Text("Send SOS Location")], //sos page location
+            children: [Text("Send SOS Location")],
           ),
           decoration: BoxDecoration(
               color: Colors.white,
