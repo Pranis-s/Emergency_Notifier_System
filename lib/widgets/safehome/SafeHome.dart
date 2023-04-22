@@ -98,7 +98,11 @@ class _SafeHomeState extends State<SafeHome> {
                   height: 10,
                 ),
                 if (_currentPosition != null) Text(_currentAddress!),
-                PrimaryButton(title: "Get Location", onPressed: () {}),
+                PrimaryButton(
+                    title: "Get Location",
+                    onPressed: () {
+                      _getCurrentLocation();
+                    }),
                 SizedBox(
                   height: 10,
                 ),
