@@ -2,6 +2,8 @@ import 'dart:math';
 
 import 'package:background_sms/background_sms.dart';
 import 'package:final_try/components/PrimaryButton.dart';
+import 'package:final_try/db/db_services.dart';
+import 'package:final_try/model/contactsm.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geocoding/geocoding.dart';
@@ -106,7 +108,25 @@ class _SafeHomeState extends State<SafeHome> {
                 SizedBox(
                   height: 10,
                 ),
-                PrimaryButton(title: "Send SOS", onPressed: () {}),
+                PrimaryButton(
+                    title: "Send SOS",
+                    onPressed: () async {
+                      List<TContact> contactList =
+                          await DatabaseHelper().getContactList();
+                      String recipients = "";
+                      // recipients bydefault= "111111111;22222222;3333333"
+                      int i = 1;
+                      for (TContact contact in contactList) {
+                        recipients = recipients + contact.number;
+                        if (i != contactList.length) {
+                          recipients += ";";
+                          i++;
+                        }
+                      }
+                      String messageBody =
+                          "https://www.google.com/maps/search/?api=1&query=${_currentPosition!.latitude}%2C${_currentPosition!.longitude}. $_currentAddress";
+                      if (await _isPermissionGranted()) {}
+                    }),
               ],
             ),
           ),
