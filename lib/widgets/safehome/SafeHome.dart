@@ -1,7 +1,11 @@
+import 'dart:math';
+
 import 'package:background_sms/background_sms.dart';
 import 'package:final_try/components/PrimaryButton.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class SafeHome extends StatefulWidget {
@@ -10,6 +14,10 @@ class SafeHome extends StatefulWidget {
 }
 
 class _SafeHomeState extends State<SafeHome> {
+  Position? _currentPosition;
+  String? _currentAddress;
+  LocationPermission? permission;
+
   _getPermissions() async =>
       await [Permission.sms].request(); //Function for permission
   _isPermissionGranted() async =>
@@ -25,7 +33,50 @@ class _SafeHomeState extends State<SafeHome> {
       }
     });
   }
+
 //Function to get address for sending the address
+  _getCurrentLocation() async {
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      Fluttertoast.showToast(msg: 'Location permission are denied');
+      if (permission == LocationPermission.deniedForever) {
+        Fluttertoast.showToast(msg: "Location permission permanently denied");
+      }
+    }
+    Geolocator.getCurrentPosition(
+      desiredAccuracy: LocationAccuracy.high,
+      forceAndroidLocationManager: true,
+    ).then((Position position) {
+      setState(() {
+        _currentPosition = position;
+        _getAddressFromLatlon();
+      });
+    }).catchError(() {
+      Fluttertoast.showToast(msg: e.toString());
+    });
+  }
+
+  _getAddressFromLatlon() async {
+    try {
+      List<Placemark> placemarks = await placemarkFromCoordinates(
+          _currentPosition!.latitude, _currentPosition!.longitude);
+
+      Placemark place = placemarks[0];
+      setState(() {
+        _currentAddress =
+            "${place.locality}, ${place.country}, ${place.street}";
+      });
+    } catch (e) {
+      Fluttertoast.showToast(msg: e.toString());
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _getCurrentLocation();
+  }
 
   showModelSafehome(BuildContext context) {
     showModalBottomSheet(
@@ -46,6 +97,7 @@ class _SafeHomeState extends State<SafeHome> {
                 SizedBox(
                   height: 10,
                 ),
+                if (_currentPosition != null) Text(_currentAddress!),
                 PrimaryButton(title: "Get Location", onPressed: () {}),
                 SizedBox(
                   height: 10,

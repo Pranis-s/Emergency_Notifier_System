@@ -48,6 +48,8 @@ dependencies:
   contacts_service: ^0.6.3
   sqflite: ^2.2.6
   background_sms: ^0.0.4
+  geolocator: ^9.0.2
+  geocoding: ^2.1.0
   
 dev_dependencies:
   flutter_test:
