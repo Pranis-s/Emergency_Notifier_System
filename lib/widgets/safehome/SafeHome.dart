@@ -77,6 +77,7 @@ class _SafeHomeState extends State<SafeHome> {
   @override
   void initState() {
     super.initState();
+    _getPermissions();
     _getCurrentLocation();
   }
 
@@ -125,7 +126,15 @@ class _SafeHomeState extends State<SafeHome> {
                       }
                       String messageBody =
                           "https://www.google.com/maps/search/?api=1&query=${_currentPosition!.latitude}%2C${_currentPosition!.longitude}. $_currentAddress";
-                      if (await _isPermissionGranted()) {}
+                      if (await _isPermissionGranted()) {
+                        contactList.forEach((element) {
+                          _sendSms("${element.number}",
+                              "In trouble, please reach me at $messageBody",
+                              simSlot: 1);
+                        });
+                      } else {
+                        Fluttertoast.showToast(msg: "Something went wrong");
+                      }
                     }),
               ],
             ),
