@@ -1,3 +1,4 @@
+import 'package:final_try/components/PrimaryButton.dart';
 import 'package:flutter/material.dart';
 
 class SafeHome extends StatelessWidget {
@@ -9,7 +10,11 @@ class SafeHome extends StatelessWidget {
           height: MediaQuery.of(context).size.height / 1.4,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [Text("Send SOS Location")],
+            children: [
+              Text("Send your location to your emergency contacts"),
+              PrimaryButton(title: "Get Location", onPressed: () {}),
+              PrimaryButton(title: "Send SOS", onPressed: () {}),
+            ],
           ),
           decoration: BoxDecoration(
               color: Colors.white,
