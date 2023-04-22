@@ -47,6 +47,7 @@ dependencies:
   permission_handler: ^10.2.0
   contacts_service: ^0.6.3
   sqflite: ^2.2.6
+  background_sms: ^0.0.4
   
 dev_dependencies:
   flutter_test:
