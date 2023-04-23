@@ -181,4 +181,3 @@ class _SafeHomeState extends State<SafeHome> {
     );
   }
 }
-//This page helps to load the SOS detail on the bottom of the page 
