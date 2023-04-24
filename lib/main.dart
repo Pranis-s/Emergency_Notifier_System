@@ -50,6 +50,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
+// Work on Logout
 /*class CheckAuth extends StatelessWidget {
   //const CheckAuth({Key? key}) : super(key: key);
   checkData() {
