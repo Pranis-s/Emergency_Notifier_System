@@ -67,7 +67,7 @@ class _SafeHomeState extends State<SafeHome> {
       Placemark place = placemarks[0];
       setState(() {
         _currentAddress =
-            "${place.locality}, ${place.country}, ${place.street}";
+            "${place.street}, ${place.locality}, ${place.country}, ";
       });
     } catch (e) {
       Fluttertoast.showToast(msg: e.toString());
