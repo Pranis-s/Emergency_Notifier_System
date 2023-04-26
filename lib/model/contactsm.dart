@@ -42,4 +42,5 @@ class TContact {
     this._name = map['name'];
   }
 }
-// This is contacts map page
+
+// contacts map page
