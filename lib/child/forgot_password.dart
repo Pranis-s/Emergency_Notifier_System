@@ -87,7 +87,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 Text(
-                                  'USER LOGIN',
+                                  'RESET PASSWORD',
                                   style: TextStyle(
                                     fontSize: 40,
                                     fontWeight: FontWeight.bold,
@@ -152,7 +152,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                             : Icon(Icons.visibility)),
                                   ),
                                   PrimaryButton(
-                                      title: 'LOGIN',
+                                      title: 'Send Request',
                                       onPressed: () {
                                         // progressIndicator(context);
                                         if (_formKey.currentState!.validate()) {
