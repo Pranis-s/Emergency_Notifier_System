@@ -22,53 +22,6 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   final _formData = Map<String, Object>();
   bool isLoading = false;
 
-  /*_onSubmit() async {
-    _formKey.currentState!.save();
-    try {
-      setState(() {
-        isLoading = true;
-      });
-
-      UserCredential userCredential = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(
-              email: _formData['email'].toString(),
-              password: _formData['password'].toString());
-      if (userCredential.user != null) {
-        setState(() {
-          isLoading = false;
-        });
-        FirebaseFirestore.instance
-            .collection("users")
-            .doc(userCredential.user!.uid)
-            .get()
-            .then((value) {
-          if (value['type'] == 'parent') {
-            print(value['type']);
-            MySharedPreference.saveUserType('parent');
-            goTo(context, ParentHomeScreen());
-          } else {
-            MySharedPreference.saveUserType('child');
-
-            goTo(context, HomeScreen());
-          }
-        });
-      }
-    } on FirebaseAuthException catch (e) {
-      setState(() {
-        isLoading = false;
-      });
-      if (e.code == 'user-not-found') {
-        dialogueBox(context, 'No user found for that email.');
-        print('No user found for that email.');
-      } else if (e.code == 'wrong-password') {
-        dialogueBox(context, 'Wrong password provided for that user.');
-        print('Wrong password provided for that user.');
-      }
-    }
-    print(_formData['email']);
-    print(_formData['password']);
-  }*/
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -192,4 +145,3 @@ class _ForgotPasswordState extends State<ForgotPassword> {
     );
   }
 }
-//change this file 
