@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:final_try/child/child_login_screen.dart';
 import 'package:final_try/components/SecondaryButton.dart';
 import 'package:final_try/components/custom_textfield.dart';
 import 'package:final_try/child/register_child.dart';
@@ -168,24 +169,18 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  "Forgot password?",
+                                  "To go back to login screen",
                                   style: TextStyle(fontSize: 18),
                                 ),
                                 SecondaryButton(
-                                    title: 'Click Here', onPressed: () {}),
+                                    title: 'Click Here',
+                                    onPressed: () => Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                LoginScreen()))),
                               ],
                             ),
                           ),
-                          SecondaryButton(
-                              title: 'Register as Child',
-                              onPressed: () {
-                                goTo(context, RegisterChildScreen());
-                              }),
-                          SecondaryButton(
-                              title: 'Register as Parent',
-                              onPressed: () {
-                                goTo(context, RegisterParentScreen());
-                              }),
                         ],
                       ),
                     ),
