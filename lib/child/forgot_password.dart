@@ -1,16 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:final_try/child/child_login_screen.dart';
-import 'package:final_try/components/SecondaryButton.dart';
 import 'package:final_try/components/custom_textfield.dart';
-import 'package:final_try/child/register_child.dart';
 import 'package:final_try/db/share_pref.dart';
-import 'package:final_try/parent/parent_register_screen.dart';
 import 'package:final_try/utils/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../components/PrimaryButton.dart';
-import 'bottom_screens/child_home_screen.dart';
-import '../parent/parent_home_screen.dart';
 
 class ForgotPassword extends StatefulWidget {
   @override
@@ -18,17 +14,21 @@ class ForgotPassword extends StatefulWidget {
 }
 
 class _ForgotPasswordState extends State<ForgotPassword> {
+  TextEditingController forgetPasswordController = TextEditingController();
   bool isPasswordShown = true;
+  bool isRetypePasswordShown = true;
+
   final _formKey = GlobalKey<FormState>();
   final _formData = Map<String, Object>();
   bool isLoading = false;
 
-  _onSubmit() async {
+  /*_onSubmit() async {
     _formKey.currentState!.save();
     try {
       setState(() {
         isLoading = true;
       });
+
       UserCredential userCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(
               email: _formData['email'].toString(),
@@ -67,7 +67,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
     }
     print(_formData['email']);
     print(_formData['password']);
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -112,11 +112,12 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
                                   CustomTextField(
+                                    controller: forgetPasswordController,
                                     hintText: 'Enter Email',
                                     textInputAction: TextInputAction.next,
                                     keyboardtype: TextInputType.emailAddress,
                                     prefix: Icon(Icons.person),
-                                    onsave: (email) {
+                                    /*onsave: (email) {
                                       _formData['email'] = email ?? "";
                                     },
                                     validate: (email) {
@@ -126,59 +127,59 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                         return 'Enter Correct Email';
                                       }
                                       return null;
-                                    },
-                                  ),
-                                  CustomTextField(
-                                    hintText: 'Enter Password',
-                                    isPassword: isPasswordShown,
-                                    prefix: Icon(Icons.vpn_key_rounded),
-                                    onsave: (password) {
-                                      _formData['password'] = password ?? "";
-                                    },
-                                    validate: (password) {
-                                      if (password!.isEmpty ||
-                                          password.length < 7) {
-                                        return 'Enter Correct Password';
-                                      }
-                                      return null;
-                                    },
-                                    suffix: IconButton(
-                                        onPressed: () {
-                                          setState(() {
-                                            isPasswordShown = !isPasswordShown;
-                                          });
-                                        },
-                                        icon: isPasswordShown
-                                            ? Icon(Icons.visibility_off)
-                                            : Icon(Icons.visibility)),
+                                    },*/
                                   ),
                                   PrimaryButton(
-                                      title: 'Send Request',
-                                      onPressed: () {
-                                        // progressIndicator(context);
-                                        if (_formKey.currentState!.validate()) {
-                                          _onSubmit();
+                                    title: 'Send Request',
+                                    onPressed: () async {
+                                      var forgotEmail =
+                                          forgetPasswordController.text.trim();
+
+                                      try {
+                                        await FirebaseAuth.instance
+                                            .sendPasswordResetEmail(
+                                                email: forgotEmail)
+                                            .then((value) => {
+                                                  print("Email is sent"),
+                                                  Get.off(() => LoginScreen())
+                                                });
+                                      } on FirebaseAuthException catch (e) {
+                                        print("Error $e");
+                                      }
+                                      /*if (_formKey.currentState!.validate()) {
+                                        if (_formData['email']
+                                            .toString()
+                                            .isEmpty) {
+                                          // show error dialog if email is empty
+                                          /*showDialog(
+                                            context: context,
+                                            builder: (context) => AlertDialog(
+                                              title: Text('Error'),
+                                              content: Text(
+                                                  'Please enter a correct email.'),
+                                              actions: [
+                                                TextButton(
+                                                  onPressed: () =>
+                                                      Navigator.pop(context),
+                                                  child: Text('OK'),
+                                                )
+                                              ],
+                                            ),
+                                          );*/
+                                        } else {
+                                          // send password reset email
+                                          
+                                          /*await FirebaseAuth.instance
+                                              .sendPasswordResetEmail(
+                                                  email: _formData['email']
+                                                      .toString());
+                                          Navigator.of(context).pop();*/
                                         }
-                                      }),
+                                      }*/
+                                    },
+                                  ),
                                 ],
                               ),
-                            ),
-                          ),
-                          Container(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "To go back to login screen",
-                                  style: TextStyle(fontSize: 18),
-                                ),
-                                SecondaryButton(
-                                    title: 'Click Here',
-                                    onPressed: () => Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                LoginScreen()))),
-                              ],
                             ),
                           ),
                         ],
