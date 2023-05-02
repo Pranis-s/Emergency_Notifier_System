@@ -1,7 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:final_try/child/child_login_screen.dart';
 import 'package:final_try/components/custom_textfield.dart';
-import 'package:final_try/db/share_pref.dart';
 import 'package:final_try/utils/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -83,7 +81,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                     },*/
                                   ),
                                   PrimaryButton(
-                                    title: 'Send Request',
+                                    title: 'Password Reset Request',
                                     onPressed: () async {
                                       var forgotEmail =
                                           forgetPasswordController.text.trim();
