@@ -1,7 +1,6 @@
 import 'package:final_try/child/child_login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:get/get.dart';
 import '../../utils/constants.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -12,29 +11,12 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  late User _user;
-
-  final _auth = FirebaseAuth.instance;
-
-  final nameController = TextEditingController();
-  final phoneController = TextEditingController();
-  final emailController = TextEditingController();
+  User? user;
 
   @override
   void initState() {
     super.initState();
-    _user = _auth.currentUser!;
-    nameController.text = _user.displayName ?? '';
-    phoneController.text = _user.phoneNumber ?? '';
-    emailController.text = _user.email ?? '';
-  }
-
-  void _logout() async {
-    await _auth.signOut();
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => LoginScreen()),
-    );
+    user = FirebaseAuth.instance.currentUser;
   }
 
   @override
@@ -62,29 +44,52 @@ class _ProfilePageState extends State<ProfilePage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  TextField(
-                    controller: nameController,
-                    decoration: InputDecoration(
-                      labelText: 'Name',
-                      border: OutlineInputBorder(),
+                  if (user != null) ...[
+                    Container(
+                      padding: EdgeInsets.all(16.0),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: primaryColor,
+                          width: 2.0,
+                        ),
+                        borderRadius: BorderRadius.circular(16.0),
+                      ),
+                      child: Text(
+                        'Name: ${user!.displayName ?? ""}',
+                        style: TextStyle(fontSize: 20.0),
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 16.0),
-                  TextField(
-                    controller: phoneController,
-                    decoration: InputDecoration(
-                      labelText: 'Phone Number',
-                      border: OutlineInputBorder(),
+                    SizedBox(height: 16.0),
+                    Container(
+                      padding: EdgeInsets.all(16.0),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: primaryColor,
+                          width: 2.0,
+                        ),
+                        borderRadius: BorderRadius.circular(16.0),
+                      ),
+                      child: Text(
+                        'Phone Number: ${user!.phoneNumber ?? ""}',
+                        style: TextStyle(fontSize: 20.0),
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 16.0),
-                  TextField(
-                    controller: emailController,
-                    decoration: InputDecoration(
-                      labelText: 'Email',
-                      border: OutlineInputBorder(),
+                    SizedBox(height: 16.0),
+                    Container(
+                      padding: EdgeInsets.all(16.0),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: primaryColor,
+                          width: 2.0,
+                        ),
+                        borderRadius: BorderRadius.circular(16.0),
+                      ),
+                      child: Text(
+                        'Email: ${user!.email ?? ""}',
+                        style: TextStyle(fontSize: 20.0),
+                      ),
                     ),
-                  ),
+                  ],
                   SizedBox(height: 32.0),
                   ElevatedButton(
                     onPressed: _logout,
@@ -100,5 +105,12 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
       ),
     );
+  }
+
+  void _logout() async {
+    await FirebaseAuth.instance.signOut();
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => LoginScreen()),
+        (route) => false);
   }
 }
