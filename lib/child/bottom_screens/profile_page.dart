@@ -1,29 +1,53 @@
-import 'package:final_try/utils/constants.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:final_try/child/child_login_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import '../../utils/constants.dart';
 
-import '../child_login_screen.dart';
+class ProfilePage extends StatefulWidget {
+  const ProfilePage({Key? key}) : super(key: key);
 
-class ProfilePage extends StatelessWidget {
-  final auth = FirebaseAuth.instance;
+  @override
+  _ProfilePageState createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  late User _user;
+
+  final _auth = FirebaseAuth.instance;
+
+  final nameController = TextEditingController();
+  final phoneController = TextEditingController();
+  final emailController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _user = _auth.currentUser!;
+    nameController.text = _user.displayName ?? '';
+    phoneController.text = _user.phoneNumber ?? '';
+    emailController.text = _user.email ?? '';
+  }
+
+  void _logout() async {
+    await _auth.signOut();
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => LoginScreen()),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    final user = auth.currentUser;
-    final name = user?.displayName;
-    final email = user?.email;
-    final phone = user?.phoneNumber;
-
     return Scaffold(
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(18.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
+        child: Stack(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(18.0),
+              child: Align(
+                alignment: Alignment.topCenter,
+                child: Text(
                   'USER PROFILE',
                   style: TextStyle(
                     fontSize: 40,
@@ -31,50 +55,48 @@ class ProfilePage extends StatelessWidget {
                     color: primaryColor,
                   ),
                 ),
-                SizedBox(height: 20),
-                Text(
-                  'Name: ${name ?? 'N/A'}',
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: primaryColor,
-                  ),
-                ),
-                SizedBox(height: 10),
-                Text(
-                  'Email: ${email ?? 'N/A'}',
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: primaryColor,
-                  ),
-                ),
-                SizedBox(height: 10),
-                Text(
-                  'Phone: ${phone ?? 'N/A'}',
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: primaryColor,
-                  ),
-                ),
-                SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: () async {
-                    await auth.signOut();
-                    Get.offAll(() => LoginScreen());
-                  },
-                  child: Text(
-                    'Logout',
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.white,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 100.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextField(
+                    controller: nameController,
+                    decoration: InputDecoration(
+                      labelText: 'Name',
+                      border: OutlineInputBorder(),
                     ),
                   ),
-                  style: ElevatedButton.styleFrom(
-                    primary: primaryColor,
+                  SizedBox(height: 16.0),
+                  TextField(
+                    controller: phoneController,
+                    decoration: InputDecoration(
+                      labelText: 'Phone Number',
+                      border: OutlineInputBorder(),
+                    ),
                   ),
-                ),
-              ],
+                  SizedBox(height: 16.0),
+                  TextField(
+                    controller: emailController,
+                    decoration: InputDecoration(
+                      labelText: 'Email',
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
+                  SizedBox(height: 32.0),
+                  ElevatedButton(
+                    onPressed: _logout,
+                    child: Text('Logout'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: primaryColor,
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );
