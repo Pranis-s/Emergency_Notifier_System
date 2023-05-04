@@ -17,7 +17,7 @@ class _HomeScreenState extends State<HomeScreen> {
   // const HomeScreen({super.key});
   int qIndex = 0;
 
-  getRandomQuote() {
+  /*getRandomQuote() {
     Random random = Random();
     setState(() {
       qIndex = random.nextInt(5);
@@ -28,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     getRandomQuote();
     super.initState();
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -38,10 +38,10 @@ class _HomeScreenState extends State<HomeScreen> {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              CustomAppBar(
+              /*CustomAppBar(
                 quoteIndex: qIndex,
-                onTap: getRandomQuote(),
-              ),
+                //onTap: getRandomQuote(),
+              ),*/
               Expanded(
                 child: ListView(
                   shrinkWrap: true,
