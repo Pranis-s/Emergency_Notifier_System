@@ -19,7 +19,6 @@ class _BottomPageState extends State<BottomPage> {
     AddContactsPage(),
     ChatPage(),
     ProfilePage(),
-    ReviewPage(),
   ];
   onTapped(int index) {
     setState(() {
