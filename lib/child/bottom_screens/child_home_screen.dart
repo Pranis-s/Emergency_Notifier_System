@@ -1,6 +1,5 @@
-import 'dart:math';
+import 'package:final_try/child/bottom_page.dart';
 import 'package:final_try/widgets/home_widgets/CustomCarouel.dart';
-import 'package:final_try/widgets/home_widgets/custom_appBar.dart';
 import 'package:final_try/widgets/home_widgets/emergency.dart';
 import 'package:final_try/widgets/home_widgets/live_safe.dart';
 import 'package:final_try/widgets/safehome/SafeHome.dart';
