@@ -48,11 +48,6 @@ class _BottomPageState extends State<BottomPage> {
                 icon: Icon(
                   Icons.person,
                 )),
-            /*BottomNavigationBarItem(
-                label: 'Reviews',
-                icon: Icon(
-                  Icons.reviews,
-                ))*/
           ]),
     );
   }
