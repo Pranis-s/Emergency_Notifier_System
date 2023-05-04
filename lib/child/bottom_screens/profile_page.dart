@@ -1,3 +1,4 @@
+import 'package:final_try/utils/constants.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -7,18 +8,30 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: SafeArea(
-            child: Padding(
-      padding: const EdgeInsets.all(25.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+      child: Stack(
         children: [
-          Icon(
-            Icons.person_3,
-            size: 100,
-            color: Color.fromARGB(255, 239, 90, 140),
-          )
+          Padding(
+            padding: const EdgeInsets.all(18.0),
+            child: Align(
+                alignment: Alignment.topCenter,
+                child: Text(
+                  'USER PROFILE',
+                  style: TextStyle(
+                    fontSize: 40,
+                    fontWeight: FontWeight.bold,
+                    color: primaryColor,
+                  ),
+                )),
+          ),
+          Align(
+              alignment: Alignment.center,
+              child: Icon(
+                Icons.person,
+                size: 100,
+                color: primaryColor,
+              ))
         ],
       ),
-    )));
+    ));
   }
 }
