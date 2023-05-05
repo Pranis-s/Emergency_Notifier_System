@@ -260,3 +260,4 @@ class _RegisterParentScreen extends State<RegisterParentScreen> {
     );
   }
 }
+//Make it admin registration 
