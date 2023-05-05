@@ -40,8 +40,20 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 100.0),
+            Positioned(
+              top: MediaQuery.of(context).size.height * 0.15,
+              left: 0,
+              right: 0,
+              child: Center(
+                child: Icon(
+                  Icons.person,
+                  size: 150,
+                  color: primaryColor,
+                ),
+              ),
+            ),
+            /*Padding(
+              padding: const EdgeInsets.only(top: 150),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -69,7 +81,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 ],
               ),
-            ),
+            ),*/
           ],
         ),
       ),
