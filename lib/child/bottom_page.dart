@@ -17,7 +17,7 @@ class _BottomPageState extends State<BottomPage> {
   List<Widget> pages = [
     HomeScreen(),
     AddContactsPage(),
-    ChatPage(),
+    //ChatPage(),
     ProfilePage(),
   ];
   onTapped(int index) {
@@ -38,11 +38,11 @@ class _BottomPageState extends State<BottomPage> {
             BottomNavigationBarItem(label: 'Home', icon: Icon(Icons.home)),
             BottomNavigationBarItem(
                 label: 'Contacts', icon: Icon(Icons.contacts)),
-            BottomNavigationBarItem(
+            /*BottomNavigationBarItem(
                 label: 'Chat',
                 icon: Icon(
                   Icons.chat,
-                )),
+                )),*/
             BottomNavigationBarItem(
                 label: 'Profile',
                 icon: Icon(

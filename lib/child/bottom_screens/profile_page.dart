@@ -52,7 +52,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ),
             ),
-            /*Padding(
+            Padding(
               padding: const EdgeInsets.only(top: 150),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -81,7 +81,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 ],
               ),
-            ),*/
+            ),
           ],
         ),
       ),

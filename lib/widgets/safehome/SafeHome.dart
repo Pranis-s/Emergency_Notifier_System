@@ -31,7 +31,7 @@ class _SafeHomeState extends State<SafeHome> {
       if (status == "sent ") {
         Fluttertoast.showToast(msg: "sent");
       } else {
-        Fluttertoast.showToast(msg: "failed");
+        Fluttertoast.showToast(msg: " ");
       }
     });
   }
@@ -129,7 +129,7 @@ class _SafeHomeState extends State<SafeHome> {
                       if (await _isPermissionGranted()) {
                         contactList.forEach((element) {
                           _sendSms("${element.number}",
-                              "In trouble, please reach me at $messageBody",
+                              "In trouble, I am at $messageBody",
                               simSlot: 1);
                         });
                       } else {

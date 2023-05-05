@@ -1,9 +1,18 @@
-import 'package:final_try/child/bottom_page.dart';
+import 'dart:math';
+
+import 'package:background_sms/background_sms.dart';
 import 'package:final_try/widgets/home_widgets/CustomCarouel.dart';
 import 'package:final_try/widgets/home_widgets/emergency.dart';
 import 'package:final_try/widgets/home_widgets/live_safe.dart';
 import 'package:final_try/widgets/safehome/SafeHome.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:permission_handler/permission_handler.dart';
+
+import '../../db/db_services.dart';
+import '../../model/contactsm.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -15,19 +24,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   // const HomeScreen({super.key});
   int qIndex = 0;
-
-  /*getRandomQuote() {
-    Random random = Random();
-    setState(() {
-      qIndex = random.nextInt(5);
-    });
-  }
-
-  @override
-  void initState() {
-    getRandomQuote();
-    super.initState();
-  }*/
 
   @override
   Widget build(BuildContext context) {
