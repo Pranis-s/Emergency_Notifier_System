@@ -1,4 +1,5 @@
 import 'package:final_try/child/child_login_screen.dart';
+import 'package:final_try/components/PrimaryButton.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../../utils/constants.dart';
@@ -11,12 +12,12 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  User? user;
+  User? name;
 
   @override
   void initState() {
     super.initState();
-    user = FirebaseAuth.instance.currentUser;
+    name = FirebaseAuth.instance.currentUser;
   }
 
   @override
@@ -44,21 +45,7 @@ class _ProfilePageState extends State<ProfilePage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  if (user != null) ...[
-                    Container(
-                      padding: EdgeInsets.all(16.0),
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: primaryColor,
-                          width: 2.0,
-                        ),
-                        borderRadius: BorderRadius.circular(16.0),
-                      ),
-                      child: Text(
-                        'Name: ${user!.displayName ?? ""}',
-                        style: TextStyle(fontSize: 20.0),
-                      ),
-                    ),
+                  if (name != null) ...[
                     SizedBox(height: 16.0),
                     Container(
                       padding: EdgeInsets.all(16.0),
@@ -70,33 +57,15 @@ class _ProfilePageState extends State<ProfilePage> {
                         borderRadius: BorderRadius.circular(16.0),
                       ),
                       child: Text(
-                        'Phone Number: ${user!.phoneNumber ?? ""}',
-                        style: TextStyle(fontSize: 20.0),
-                      ),
-                    ),
-                    SizedBox(height: 16.0),
-                    Container(
-                      padding: EdgeInsets.all(16.0),
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: primaryColor,
-                          width: 2.0,
-                        ),
-                        borderRadius: BorderRadius.circular(16.0),
-                      ),
-                      child: Text(
-                        'Email: ${user!.email ?? ""}',
+                        'User: ${name!.email ?? ""}',
                         style: TextStyle(fontSize: 20.0),
                       ),
                     ),
                   ],
-                  SizedBox(height: 32.0),
-                  ElevatedButton(
+                  SizedBox(height: 35.0),
+                  PrimaryButton(
+                    title: "LOGOUT",
                     onPressed: _logout,
-                    child: Text('Logout'),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: primaryColor,
-                    ),
                   ),
                 ],
               ),
