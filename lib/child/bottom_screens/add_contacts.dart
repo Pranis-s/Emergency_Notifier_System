@@ -62,7 +62,6 @@ class _AddContactsPageState extends State<AddContactsPage> {
         child: Column(//Column display child widgets verticallly one below other
             children: [
           PrimaryButton(
-              //PrimButton display button with title add trusted contacts
               title: "Add trusted contacts",
               onPressed: () async {
                 bool result = await Navigator.push(context,
