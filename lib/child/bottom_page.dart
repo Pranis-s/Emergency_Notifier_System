@@ -42,7 +42,7 @@ class _BottomPageState extends State<BottomPage> {
                 label: 'Chat',
                 icon: Icon(
                   Icons.chat,
-                )), //Chat should be removed*/
+                )), */
             BottomNavigationBarItem(
                 label: 'Profile',
                 icon: Icon(
