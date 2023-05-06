@@ -1,18 +1,8 @@
-import 'dart:math';
-
-import 'package:background_sms/background_sms.dart';
 import 'package:final_try/widgets/home_widgets/CustomCarouel.dart';
 import 'package:final_try/widgets/home_widgets/emergency.dart';
 import 'package:final_try/widgets/home_widgets/live_safe.dart';
 import 'package:final_try/widgets/safehome/SafeHome.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:geocoding/geocoding.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:permission_handler/permission_handler.dart';
-
-import '../../db/db_services.dart';
-import '../../model/contactsm.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
