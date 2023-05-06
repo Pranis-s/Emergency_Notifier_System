@@ -2,7 +2,9 @@ import 'package:final_try/child/child_login_screen.dart';
 import 'package:final_try/components/PrimaryButton.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import '../../components/SecondaryButton.dart';
 import '../../utils/constants.dart';
+import '../forgot_password.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -82,6 +84,25 @@ class _ProfilePageState extends State<ProfilePage> {
                 ],
               ),
             ),
+            Positioned(
+              bottom: MediaQuery.of(context).size.height * 0.15,
+              child: Container(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "To Reset Password,",
+                      style: TextStyle(fontSize: 18),
+                    ),
+                    SecondaryButton(
+                        title: 'Click Here',
+                        onPressed: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => ForgotPassword()))),
+                  ],
+                ),
+              ),
+            )
           ],
         ),
       ),
