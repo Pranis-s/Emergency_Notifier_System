@@ -85,7 +85,10 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
             Positioned(
-              bottom: MediaQuery.of(context).size.height * 0.15,
+              bottom: MediaQuery.of(context).size.height * 0.5 -
+                  280.0, // 40.0 is half the height of the Container
+              left: 0,
+              right: 0,
               child: Container(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -95,14 +98,17 @@ class _ProfilePageState extends State<ProfilePage> {
                       style: TextStyle(fontSize: 18),
                     ),
                     SecondaryButton(
-                        title: 'Click Here',
-                        onPressed: () => Navigator.of(context).push(
-                            MaterialPageRoute(
-                                builder: (context) => ForgotPassword()))),
+                      title: 'Click Here',
+                      onPressed: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => ForgotPassword(),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),
