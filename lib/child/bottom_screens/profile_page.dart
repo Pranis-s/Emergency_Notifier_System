@@ -122,4 +122,3 @@ class _ProfilePageState extends State<ProfilePage> {
         (route) => false);
   }
 }
-//profile reset
