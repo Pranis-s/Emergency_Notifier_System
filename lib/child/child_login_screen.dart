@@ -4,13 +4,11 @@ import 'package:final_try/components/SecondaryButton.dart';
 import 'package:final_try/components/custom_textfield.dart';
 import 'package:final_try/child/register_child.dart';
 import 'package:final_try/db/share_pref.dart';
-import 'package:final_try/parent/parent_register_screen.dart';
 import 'package:final_try/utils/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../components/PrimaryButton.dart';
 import 'bottom_screens/child_home_screen.dart';
-import '../parent/parent_home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -42,7 +40,7 @@ class _LoginScreenState extends State<LoginScreen> {
             .doc(userCredential.user!.uid)
             .get()
             .then((value) {
-          if (value['type'] == 'parent') {
+          /*if (value['type'] == 'parent') {
             print(value['type']);
             MySharedPreference.saveUserType('parent');
             goTo(context, ParentHomeScreen());
@@ -50,7 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
             MySharedPreference.saveUserType('child');
 
             goTo(context, HomeScreen());
-          }
+          }*/
         });
       }
     } on FirebaseAuthException catch (e) {

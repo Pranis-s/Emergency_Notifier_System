@@ -1,28 +1,68 @@
 @startuml
 
-actor User
+left to right direction
 
-User -> LoginScreen: Navigate to login screen
-activate LoginScreen
+!define SPRITESURL https://raw.githubusercontent.com/rabelenda/cicon-plantuml-sprites/v1.1/sprites
+!define ICONSIZE 18
 
-User -> LoginScreen: Enter email and password
+!define ICONURL(icon) SPRITESURL + "/" + icon + ".png"
 
-LoginScreen -> FirebaseAuthentication: Sign in with email and password
-activate FirebaseAuthentication
 
-FirebaseAuthentication -> Firestore: Get user type
-activate Firestore
+!define MYICON(icon) !defineicon(icon) ICONURL(icon)
 
-Firestore --> FirebaseAuthentication: Return user type
-deactivate Firestore
 
-FirebaseAuthentication --> LoginScreen: Return user credential
-deactivate FirebaseAuthentication
+package "Final Try App" {
+  package "Components" {
+    class CustomTextField
+    class PrimaryButton
+    class SecondaryButton
+  }
+  package "DB" {
+    class MySharedPreference
+  }
+  package "Child" {
+    class RegisterChildScreen
+    class ForgotPassword
+    class HomeScreen
+  }
+  package "Parent" {
+    class ParentHomeScreen
+    class ParentRegisterScreen
+  }
+  class LoginScreen {
+    - bool isPasswordShown
+    - GlobalKey<FormState> _formKey
+    - Map<String, Object> _formData
+    - bool isLoading
+    + _onSubmit()
+    + build()
+  }
 
-LoginScreen -> SharedPreference: Save user type
-activate SharedPreference
+  class FirebaseAuth {
+    + Future<UserCredential> signInWithEmailAndPassword(String email, String password)
+  }
 
-SharedPreference --> LoginScreen: User type saved
-deactivate SharedPreference
+  class FirebaseFirestore {
+    + Future<DocumentSnapshot> get()
+    + CollectionReference collection(String path)
+  }
+
+  class UserCredential
+  class User
+
+  CustomTextField -- LoginScreen
+  PrimaryButton -- LoginScreen
+  SecondaryButton -- LoginScreen
+  MySharedPreference -- LoginScreen
+  RegisterChildScreen -- LoginScreen
+  ForgotPassword -- LoginScreen
+  HomeScreen -- LoginScreen
+  ParentHomeScreen -- LoginScreen
+  ParentRegisterScreen -- LoginScreen
+  FirebaseAuth -- LoginScreen
+  FirebaseFirestore -- LoginScreen
+  UserCredential -- LoginScreen
+  UserCredential *-- User
+}
 
 @enduml

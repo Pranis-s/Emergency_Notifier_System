@@ -1,6 +1,5 @@
 import 'package:final_try/child/bottom_page.dart';
 import 'package:final_try/db/share_pref.dart';
-import 'package:final_try/parent/parent_home_screen.dart';
 import 'package:final_try/utils/constants.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -40,10 +39,10 @@ class MyApp extends StatelessWidget {
               }
               if (snapshot.data == 'child') {
                 return BottomPage();
-              }
+              } /*
               if (snapshot.data == 'parent ') {
                 return ParentHomeScreen();
-              }
+              }*/
 
               return progressIndicator(context);
             }));
