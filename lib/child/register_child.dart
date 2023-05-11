@@ -49,7 +49,7 @@ class _RegisterChildScreenState extends State<RegisterChildScreen> {
             name: _formData['name'].toString(),
             phone: _formData['phone'].toString(),
             childEmail: _formData['cemail'].toString(),
-            guardianEmail: _formData['gemail'].toString(),
+            //guardianEmail: _formData['gemail'].toString(),
             id: v,
             type: 'child',
           );
