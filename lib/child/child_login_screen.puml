@@ -1,0 +1,28 @@
+@startuml
+
+actor User
+
+User -> LoginScreen: Navigate to login screen
+activate LoginScreen
+
+User -> LoginScreen: Enter email and password
+
+LoginScreen -> FirebaseAuthentication: Sign in with email and password
+activate FirebaseAuthentication
+
+FirebaseAuthentication -> Firestore: Get user type
+activate Firestore
+
+Firestore --> FirebaseAuthentication: Return user type
+deactivate Firestore
+
+FirebaseAuthentication --> LoginScreen: Return user credential
+deactivate FirebaseAuthentication
+
+LoginScreen -> SharedPreference: Save user type
+activate SharedPreference
+
+SharedPreference --> LoginScreen: User type saved
+deactivate SharedPreference
+
+@enduml

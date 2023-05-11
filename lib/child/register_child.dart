@@ -121,7 +121,7 @@ class _RegisterChildScreenState extends State<RegisterChildScreen> {
                           ),
                         ),
                         Container(
-                          height: MediaQuery.of(context).size.height * 0.95,
+                          height: MediaQuery.of(context).size.height * 0.65,
                           child: Form(
                             key: _formKey,
                             child: Column(
@@ -174,7 +174,7 @@ class _RegisterChildScreenState extends State<RegisterChildScreen> {
                                     return null;
                                   },
                                 ),
-                                CustomTextField(
+                                /*CustomTextField(
                                   hintText: 'Enter Guardian email',
                                   textInputAction: TextInputAction.next,
                                   keyboardtype: TextInputType.emailAddress,
@@ -190,7 +190,7 @@ class _RegisterChildScreenState extends State<RegisterChildScreen> {
                                     }
                                     return null;
                                   },
-                                ),
+                                ),*/
                                 CustomTextField(
                                   hintText: 'Enter Password',
                                   isPassword: isPasswordShown,
