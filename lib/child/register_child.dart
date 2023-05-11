@@ -49,7 +49,7 @@ class _RegisterChildScreenState extends State<RegisterChildScreen> {
             name: _formData['name'].toString(),
             phone: _formData['phone'].toString(),
             childEmail: _formData['cemail'].toString(),
-            //guardianEmail: _formData['gemail'].toString(),
+            guardianEmail: _formData['gemail'].toString(),
             id: v,
             type: 'child',
           );
@@ -174,7 +174,7 @@ class _RegisterChildScreenState extends State<RegisterChildScreen> {
                                     return null;
                                   },
                                 ),
-                                /*CustomTextField(
+                                CustomTextField(
                                   hintText: 'Enter Guardian email',
                                   textInputAction: TextInputAction.next,
                                   keyboardtype: TextInputType.emailAddress,
@@ -190,7 +190,7 @@ class _RegisterChildScreenState extends State<RegisterChildScreen> {
                                     }
                                     return null;
                                   },
-                                ),*/
+                                ),
                                 CustomTextField(
                                   hintText: 'Enter Password',
                                   isPassword: isPasswordShown,
