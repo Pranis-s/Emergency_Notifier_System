@@ -25,10 +25,6 @@ package "Final Try App" {
     class ForgotPassword
     class HomeScreen
   }
-  package "Parent" {
-    class ParentHomeScreen
-    class ParentRegisterScreen
-  }
   class LoginScreen {
     - bool isPasswordShown
     - GlobalKey<FormState> _formKey
@@ -57,8 +53,6 @@ package "Final Try App" {
   RegisterChildScreen -- LoginScreen
   ForgotPassword -- LoginScreen
   HomeScreen -- LoginScreen
-  ParentHomeScreen -- LoginScreen
-  ParentRegisterScreen -- LoginScreen
   FirebaseAuth -- LoginScreen
   FirebaseFirestore -- LoginScreen
   UserCredential -- LoginScreen
