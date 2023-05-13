@@ -3,6 +3,7 @@ import 'package:final_try/widgets/home_widgets/emergency.dart';
 import 'package:final_try/widgets/home_widgets/live_safe.dart';
 import 'package:final_try/widgets/safehome/SafeHome.dart';
 import 'package:flutter/material.dart';
+import 'package:dcdg/dcdg.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
