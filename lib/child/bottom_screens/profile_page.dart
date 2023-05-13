@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../../components/SecondaryButton.dart';
 import '../../utils/constants.dart';
 import '../forgot_password.dart';
+import 'package:dcdg/dcdg.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
