@@ -3,6 +3,7 @@ import 'package:final_try/child/bottom_screens/child_home_screen.dart';
 
 import 'package:final_try/child/bottom_screens/profile_page.dart';
 import 'package:flutter/material.dart';
+import 'package:dcdg/dcdg.dart';
 
 class BottomPage extends StatefulWidget {
   const BottomPage({super.key});
