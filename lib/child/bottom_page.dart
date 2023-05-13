@@ -1,5 +1,4 @@
 import 'package:final_try/child/bottom_screens/add_contacts.dart';
-import 'package:final_try/child/bottom_screens/chat_page.dart';
 import 'package:final_try/child/bottom_screens/child_home_screen.dart';
 
 import 'package:final_try/child/bottom_screens/profile_page.dart';

@@ -1,62 +1,364 @@
 @startuml
 
-left to right direction
+left to right direction 
 
-!define SPRITESURL https://raw.githubusercontent.com/rabelenda/cicon-plantuml-sprites/v1.1/sprites
-!define ICONSIZE 18
+set namespaceSeparator ::
 
-!define ICONURL(icon) SPRITESURL + "/" + icon + ".png"
-
-
-!define MYICON(icon) !defineicon(icon) ICONURL(icon)
-
-
-package "Final Try App" {
-  package "Components" {
-    class CustomTextField
-    class PrimaryButton
-    class SecondaryButton
-  }
-  package "DB" {
-    class MySharedPreference
-  }
-  package "Child" {
-    class RegisterChildScreen
-    class ForgotPassword
-    class HomeScreen
-  }
-  class LoginScreen {
-    - bool isPasswordShown
-    - GlobalKey<FormState> _formKey
-    - Map<String, Object> _formData
-    - bool isLoading
-    + _onSubmit()
-    + build()
-  }
-
-  class FirebaseAuth {
-    + Future<UserCredential> signInWithEmailAndPassword(String email, String password)
-  }
-
-  class FirebaseFirestore {
-    + Future<DocumentSnapshot> get()
-    + CollectionReference collection(String path)
-  }
-
-  class UserCredential
-  class User
-
-  CustomTextField -- LoginScreen
-  PrimaryButton -- LoginScreen
-  SecondaryButton -- LoginScreen
-  MySharedPreference -- LoginScreen
-  RegisterChildScreen -- LoginScreen
-  ForgotPassword -- LoginScreen
-  HomeScreen -- LoginScreen
-  FirebaseAuth -- LoginScreen
-  FirebaseFirestore -- LoginScreen
-  UserCredential -- LoginScreen
-  UserCredential *-- User
+class "final_try::child::bottom_page.dart::BottomPage" {
+  +State<BottomPage> createState()
 }
 
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "final_try::child::bottom_page.dart::BottomPage"
+
+class "final_try::child::bottom_page.dart::_BottomPageState" {
+  +int currentIndex
+  +List<Widget> pages
+  +dynamic onTapped()
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "final_try::child::bottom_page.dart::_BottomPageState"
+
+class "final_try::child::bottom_screens::add_contacts.dart::AddContactsPage" {
+  +State<AddContactsPage> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "final_try::child::bottom_screens::add_contacts.dart::AddContactsPage"
+
+class "final_try::child::bottom_screens::add_contacts.dart::_AddContactsPageState" {
+  +DatabaseHelper databaseHelper
+  +List<TContact>? contactList
+  +int count
+  +void showList()
+  +void deleteContact()
+  +void initState()
+  +Widget build()
+}
+
+"final_try::child::bottom_screens::add_contacts.dart::_AddContactsPageState" o-- "final_try::db::db_services.dart::DatabaseHelper"
+"flutter::src::widgets::framework.dart::State" <|-- "final_try::child::bottom_screens::add_contacts.dart::_AddContactsPageState"
+
+class "final_try::child::bottom_screens::chat_page.dart::ChatPage" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "final_try::child::bottom_screens::chat_page.dart::ChatPage"
+
+class "final_try::child::bottom_screens::child_home_screen.dart::HomeScreen" {
+  +State<HomeScreen> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "final_try::child::bottom_screens::child_home_screen.dart::HomeScreen"
+
+class "final_try::child::bottom_screens::child_home_screen.dart::_HomeScreenState" {
+  +int qIndex
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "final_try::child::bottom_screens::child_home_screen.dart::_HomeScreenState"
+
+class "final_try::child::bottom_screens::contacts_page.dart::ContactsPage" {
+  +State<ContactsPage> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "final_try::child::bottom_screens::contacts_page.dart::ContactsPage"
+
+class "final_try::child::bottom_screens::contacts_page.dart::_ContactsPageState" {
+  +List<Contact> contacts
+  +List<Contact> contactsFiltered
+  -DatabaseHelper _databaseHelper
+  +TextEditingController searchController
+  +void initState()
+  +String flattenPhoneNumber()
+  +dynamic filterContact()
+  +Future<void> askPermissions()
+  +dynamic handInvalidPermissions()
+  +Future<PermissionStatus> getContactsPermissions()
+  +dynamic getAllContacts()
+  +Widget build()
+  -void _addContact()
+}
+
+"final_try::child::bottom_screens::contacts_page.dart::_ContactsPageState" o-- "final_try::db::db_services.dart::DatabaseHelper"
+"final_try::child::bottom_screens::contacts_page.dart::_ContactsPageState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State" <|-- "final_try::child::bottom_screens::contacts_page.dart::_ContactsPageState"
+
+class "final_try::child::bottom_screens::profile_page.dart::ProfilePage" {
+  +_ProfilePageState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "final_try::child::bottom_screens::profile_page.dart::ProfilePage"
+
+class "final_try::child::bottom_screens::profile_page.dart::_ProfilePageState" {
+  +User? name
+  +void initState()
+  +Widget build()
+  -void _logout()
+}
+
+"final_try::child::bottom_screens::profile_page.dart::_ProfilePageState" o-- "firebase_auth::firebase_auth.dart::User"
+"flutter::src::widgets::framework.dart::State" <|-- "final_try::child::bottom_screens::profile_page.dart::_ProfilePageState"
+
+class "final_try::child::child_login_screen.dart::LoginScreen" {
+  +State<LoginScreen> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "final_try::child::child_login_screen.dart::LoginScreen"
+
+class "final_try::child::child_login_screen.dart::_LoginScreenState" {
+  +bool isPasswordShown
+  -GlobalKey<FormState> _formKey
+  -Map<String, Object> _formData
+  +bool isLoading
+  -dynamic _onSubmit()
+  +Widget build()
+}
+
+"final_try::child::child_login_screen.dart::_LoginScreenState" o-- "flutter::src::widgets::framework.dart::GlobalKey<FormState>"
+"flutter::src::widgets::framework.dart::State" <|-- "final_try::child::child_login_screen.dart::_LoginScreenState"
+
+class "final_try::child::forgot_password.dart::ForgotPassword" {
+  +State<ForgotPassword> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "final_try::child::forgot_password.dart::ForgotPassword"
+
+class "final_try::child::forgot_password.dart::_ForgotPasswordState" {
+  +TextEditingController forgetPasswordController
+  +bool isPasswordShown
+  +bool isRetypePasswordShown
+  -GlobalKey<FormState> _formKey
+  -Map<String, Object> _formData
+  +bool isLoading
+  +Widget build()
+}
+
+"final_try::child::forgot_password.dart::_ForgotPasswordState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"final_try::child::forgot_password.dart::_ForgotPasswordState" o-- "flutter::src::widgets::framework.dart::GlobalKey<FormState>"
+"flutter::src::widgets::framework.dart::State" <|-- "final_try::child::forgot_password.dart::_ForgotPasswordState"
+
+class "final_try::child::register_child.dart::RegisterChildScreen" {
+  +State<RegisterChildScreen> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "final_try::child::register_child.dart::RegisterChildScreen"
+
+class "final_try::child::register_child.dart::_RegisterChildScreenState" {
+  +bool isPasswordShown
+  +bool isRetypePasswordShown
+  -GlobalKey<FormState> _formKey
+  -Map<String, Object> _formData
+  +bool isLoading
+  -dynamic _onSubmit()
+  +Widget build()
+}
+
+"final_try::child::register_child.dart::_RegisterChildScreenState" o-- "flutter::src::widgets::framework.dart::GlobalKey<FormState>"
+"flutter::src::widgets::framework.dart::State" <|-- "final_try::child::register_child.dart::_RegisterChildScreenState"
+
+class "final_try::components::custom_textfield.dart::CustomTextField" {
+  +String? hintText
+  +TextEditingController? controller
+  +String? Function(String?)? validate
+  +dynamic Function(String?)? onsave
+  +int? maxLines
+  +bool isPassword
+  +bool enable
+  +bool? check
+  +TextInputType? keyboardtype
+  +TextInputAction? textInputAction
+  +FocusNode? focusNode
+  +Widget? prefix
+  +Widget? suffix
+  +Widget build()
+}
+
+"final_try::components::custom_textfield.dart::CustomTextField" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"final_try::components::custom_textfield.dart::CustomTextField" o-- "null::String Function(String)"
+"final_try::components::custom_textfield.dart::CustomTextField" o-- "null::dynamic Function(String)"
+"final_try::components::custom_textfield.dart::CustomTextField" o-- "flutter::src::services::text_input.dart::TextInputType"
+"final_try::components::custom_textfield.dart::CustomTextField" o-- "flutter::src::services::text_input.dart::TextInputAction"
+"final_try::components::custom_textfield.dart::CustomTextField" o-- "flutter::src::widgets::focus_manager.dart::FocusNode"
+"final_try::components::custom_textfield.dart::CustomTextField" o-- "flutter::src::widgets::framework.dart::Widget"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "final_try::components::custom_textfield.dart::CustomTextField"
+
+class "final_try::components::PrimaryButton.dart::PrimaryButton" {
+  +String title
+  +Function onPressed
+  +bool loading
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "final_try::components::PrimaryButton.dart::PrimaryButton"
+
+class "final_try::components::SecondaryButton.dart::SecondaryButton" {
+  +String title
+  +Function onPressed
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "final_try::components::SecondaryButton.dart::SecondaryButton"
+
+class "final_try::db::db_services.dart::DatabaseHelper" {
+  +String contactTable
+  +String colId
+  +String colContactName
+  +String colContactNumber
+  {static} -DatabaseHelper? _databaseHelper
+  {static} -Database? _database
+  +Future<Database> database
+  +Future<Database> initializeDatabase()
+  -void _createDbTable()
+  +Future<List<Map<String, dynamic>>> getContactMapList()
+  +Future<int> insertContact()
+  +Future<int> updateContact()
+  +Future<int> deleteContact()
+  +Future<int> getCount()
+  +Future<List<TContact>> getContactList()
+}
+
+"final_try::db::db_services.dart::DatabaseHelper" o-- "final_try::db::db_services.dart::DatabaseHelper"
+"final_try::db::db_services.dart::DatabaseHelper" o-- "sqflite_common::sqlite_api.dart::Database"
+
+class "final_try::db::share_pref.dart::MySharedPreference" {
+  {static} -SharedPreferences? _preferences
+  {static} +String key
+  {static} +dynamic init()
+  {static} +Future<dynamic> saveUserType()
+  {static} +Future<String>? getUserType()
+}
+
+"final_try::db::share_pref.dart::MySharedPreference" o-- "shared_preferences::shared_preferences.dart::SharedPreferences"
+
+class "final_try::main.dart::MyApp" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "final_try::main.dart::MyApp"
+
+class "final_try::model::contactsm.dart::TContact" {
+  -int? _id
+  -String? _number
+  -String? _name
+  +String number
+  +String name
+  +int id
+  +String toString()
+  +Map<String, dynamic> toMap()
+}
+
+class "final_try::model::user_model.dart::UserModel" {
+  +String? name
+  +String? id
+  +String? phone
+  +String? childEmail
+  +String? guardianEmail
+  +String? type
+  +Map<String, dynamic> toJson()
+}
+
+class "final_try::widgets::home_widgets::CustomCarouel.dart::CustomCarouel" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "final_try::widgets::home_widgets::CustomCarouel.dart::CustomCarouel"
+
+class "final_try::widgets::home_widgets::custom_appBar.dart::CustomAppBar" {
+  +Function? onTap
+  +int? quoteIndex
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "final_try::widgets::home_widgets::custom_appBar.dart::CustomAppBar"
+
+class "final_try::widgets::home_widgets::emergencies::AmbulanceEmergency.dart::AmbulanceEmergency" {
+  -dynamic _callNumber()
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "final_try::widgets::home_widgets::emergencies::AmbulanceEmergency.dart::AmbulanceEmergency"
+
+class "final_try::widgets::home_widgets::emergencies::ArmyEmergency.dart::ArmyEmergency" {
+  -dynamic _callNumber()
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "final_try::widgets::home_widgets::emergencies::ArmyEmergency.dart::ArmyEmergency"
+
+class "final_try::widgets::home_widgets::emergencies::FirebrigadeEmergency.dart::FirebrigadeEmergency" {
+  -dynamic _callNumber()
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "final_try::widgets::home_widgets::emergencies::FirebrigadeEmergency.dart::FirebrigadeEmergency"
+
+class "final_try::widgets::home_widgets::emergencies::policeemergency.dart::PoliceEmergency" {
+  -dynamic _callNumber()
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "final_try::widgets::home_widgets::emergencies::policeemergency.dart::PoliceEmergency"
+
+class "final_try::widgets::home_widgets::emergency.dart::Emergency" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "final_try::widgets::home_widgets::emergency.dart::Emergency"
+
+class "final_try::widgets::home_widgets::live_safe::BusStationCard.dart::BusStationCard" {
+  +Function? onMapFunction
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "final_try::widgets::home_widgets::live_safe::BusStationCard.dart::BusStationCard"
+
+class "final_try::widgets::home_widgets::live_safe::HospitalCard.dart::HospitalCard" {
+  +Function? onMapFunction
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "final_try::widgets::home_widgets::live_safe::HospitalCard.dart::HospitalCard"
+
+class "final_try::widgets::home_widgets::live_safe::PharmacyCard.dart::PharmacyCard" {
+  +Function? onMapFunction
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "final_try::widgets::home_widgets::live_safe::PharmacyCard.dart::PharmacyCard"
+
+class "final_try::widgets::home_widgets::live_safe::PoliceStationCard.dart::PoliceStationCard" {
+  +Function? onMapFunction
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "final_try::widgets::home_widgets::live_safe::PoliceStationCard.dart::PoliceStationCard"
+
+class "final_try::widgets::home_widgets::live_safe.dart::LiveSafe" {
+  {static} +Future<void> openMap()
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "final_try::widgets::home_widgets::live_safe.dart::LiveSafe"
+
+class "final_try::widgets::safehome::SafeHome.dart::SafeHome" {
+  +State<SafeHome> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "final_try::widgets::safehome::SafeHome.dart::SafeHome"
+
+class "final_try::widgets::safehome::SafeHome.dart::_SafeHomeState" {
+  -Position? _currentPosition
+  -String? _currentAddress
+  +LocationPermission? permission
+  -dynamic _getPermissions()
+  -dynamic _isPermissionGranted()
+  -dynamic _sendSms()
+  +void initState()
+  +dynamic showModelSafehome()
+  +Widget build()
+}
+
+"final_try::widgets::safehome::SafeHome.dart::_SafeHomeState" o-- "geolocator_platform_interface::src::models::position.dart::Position"
+"final_try::widgets::safehome::SafeHome.dart::_SafeHomeState" o-- "geolocator_platform_interface::src::enums::location_permission.dart::LocationPermission"
+"flutter::src::widgets::framework.dart::State" <|-- "final_try::widgets::safehome::SafeHome.dart::_SafeHomeState"
 @enduml

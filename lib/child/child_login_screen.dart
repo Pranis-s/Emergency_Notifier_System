@@ -9,6 +9,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../components/PrimaryButton.dart';
 import 'bottom_screens/child_home_screen.dart';
+import 'package:dcdg/dcdg.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
