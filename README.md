@@ -1,6 +1,6 @@
-# final_try
+# Emergency Notifier System
 
-A new Flutter project.
+This is a flutter project which allows user to send SOS messages, call and locate nearby basic services such as police, hospital, and fire brigade. 
 
 ## Getting Started
 
